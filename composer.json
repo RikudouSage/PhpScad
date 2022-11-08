@@ -1,0 +1,28 @@
+{
+    "name": "rikudou/php-scad",
+    "description": "A PHP wrapper around OpenSCAD",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Rikudou\\PhpScad\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dominik Chrastecky",
+            "email": "dominik@chrastecky.cz"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.13",
+        "phpstan/phpstan": "^1.9"
+    },
+    "scripts": {
+        "fixer": "php-cs-fixer fix src --verbose --allow-risky=yes",
+        "phpstan": "phpstan analyse --level=max src"
+    }
+}
