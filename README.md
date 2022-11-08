@@ -410,6 +410,8 @@ Signatures:
 - `new FacetsNumber(float $numberOfFragments)`
 - `new FacetsAngleAndSize(float $angle, float $size)`
 
+Parameters:
+
 - `$numberOfFragments` - the circle is rendered using this number of fragments
 - `$angle` - minimum angle for a fragment, no circle has more than 360 divided by this number
 - `$size` - minimum size of a fragment
