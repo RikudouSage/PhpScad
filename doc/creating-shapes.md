@@ -63,7 +63,7 @@ final class Cube implements Renderable
 }
 ```
 
-The `[cube](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Primitive_Solids#cube)` documentation in OpenSCAD
+The [`cube`](https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Primitive_Solids#cube) documentation in OpenSCAD
 is simple enough — it takes either one parameter, which is the size of each side, or three parameters in an array
 which are the same as our three parameters — width, depth and height.
 
