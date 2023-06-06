@@ -497,4 +497,8 @@ $model = new ScadModel(facetsConfiguration: new FacetsNumber(30));
 // all renderables will now use the above facets number as default
 ```
 
-**This documentation is work in progress**
+## Creating custom shapes
+
+This topic is covered in [separate documentation](doc/creating-shapes.md).
+
+**This documentation is a work in progress**
