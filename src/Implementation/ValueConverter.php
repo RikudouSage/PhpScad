@@ -9,6 +9,7 @@ use Rikudou\PhpScad\Value\FaceVector;
 use Rikudou\PhpScad\Value\FloatValue;
 use Rikudou\PhpScad\Value\IntValue;
 use Rikudou\PhpScad\Value\NullValue;
+use Rikudou\PhpScad\Value\PiValue;
 use Rikudou\PhpScad\Value\Point;
 use Rikudou\PhpScad\Value\PointVector;
 use Rikudou\PhpScad\Value\StringValue;
@@ -26,6 +27,9 @@ trait ValueConverter
         }
         if (is_int($value)) {
             return new IntValue($value);
+        }
+        if ($value === M_PI) {
+            return new PiValue();
         }
         if (is_float($value)) {
             return new FloatValue($value);
