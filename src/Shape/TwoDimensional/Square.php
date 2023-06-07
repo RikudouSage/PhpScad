@@ -3,6 +3,7 @@
 namespace Rikudou\PhpScad\Shape\TwoDimensional;
 
 use Rikudou\PhpScad\Implementation\ConditionalRenderable;
+use Rikudou\PhpScad\Implementation\TwoDimensionalShapeImplementation;
 use Rikudou\PhpScad\Implementation\ValueConverter;
 use Rikudou\PhpScad\Primitive\TwoDimensionalShape;
 use Rikudou\PhpScad\Value\BoolValue;
@@ -13,6 +14,7 @@ final class Square implements TwoDimensionalShape
 {
     use ConditionalRenderable;
     use ValueConverter;
+    use TwoDimensionalShapeImplementation;
 
     private NumericValue|Reference $width;
 

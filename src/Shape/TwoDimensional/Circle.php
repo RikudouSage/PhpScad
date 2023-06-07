@@ -5,6 +5,7 @@ namespace Rikudou\PhpScad\Shape\TwoDimensional;
 use Rikudou\PhpScad\FacetsConfiguration\FacetsConfiguration;
 use Rikudou\PhpScad\Implementation\ConditionalRenderable;
 use Rikudou\PhpScad\Implementation\FacetsConfigImplementation;
+use Rikudou\PhpScad\Implementation\TwoDimensionalShapeImplementation;
 use Rikudou\PhpScad\Implementation\ValueConverter;
 use Rikudou\PhpScad\Primitive\HasFacetsConfig;
 use Rikudou\PhpScad\Primitive\TwoDimensionalShape;
@@ -17,6 +18,7 @@ final class Circle implements TwoDimensionalShape, HasFacetsConfig
     use ConditionalRenderable;
     use FacetsConfigImplementation;
     use ValueConverter;
+    use TwoDimensionalShapeImplementation;
 
     private NumericValue|Reference|NullValue $radius;
 
