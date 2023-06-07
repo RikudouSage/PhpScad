@@ -4,11 +4,15 @@ namespace Rikudou\PhpScad\Implementation;
 
 use Error;
 use Rikudou\PhpScad\Color\Color;
+use Rikudou\PhpScad\Combination\Difference;
+use Rikudou\PhpScad\Combination\Intersection;
+use Rikudou\PhpScad\Combination\Union;
 use Rikudou\PhpScad\Coordinate\Coordinate;
 use Rikudou\PhpScad\Coordinate\X;
 use Rikudou\PhpScad\Coordinate\Y;
 use Rikudou\PhpScad\Coordinate\Z;
 use Rikudou\PhpScad\Coordinate\ZeroCoordinate;
+use Rikudou\PhpScad\Primitive\Renderable;
 use Rikudou\PhpScad\Transformation\ColorChange;
 use Rikudou\PhpScad\Transformation\Translate;
 use Rikudou\PhpScad\Value\Expression;
@@ -75,6 +79,21 @@ trait RenderableImplementation
     public function movedDownOnZ(NumericValue|Reference|float $millimeters): self
     {
         return $this->movedBy(new Z(new Expression("-{$millimeters}")));
+    }
+
+    public function joinedWith(Renderable ...$renderable): Union
+    {
+        return new Union($this, ...$renderable);
+    }
+
+    public function subtractedWith(Renderable ...$renderable): Difference
+    {
+        return new Difference($this, ...$renderable);
+    }
+
+    public function intersectedWith(Renderable ...$renderable): Intersection
+    {
+        return new Intersection($this, ...$renderable);
     }
 
     public function getWrappers(): iterable
