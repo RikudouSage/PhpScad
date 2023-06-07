@@ -4,7 +4,9 @@ namespace Rikudou\PhpScad;
 
 use JetBrains\PhpStorm\Immutable;
 use Rikudou\PhpScad\FacetsConfiguration\FacetsConfiguration;
+use Rikudou\PhpScad\Font\InjectedFont;
 use Rikudou\PhpScad\Implementation\GetWrappedRenderable;
+use Rikudou\PhpScad\Implementation\Wither;
 use Rikudou\PhpScad\Module\CustomizerEndModule;
 use Rikudou\PhpScad\Primitive\CustomizerVariable;
 use Rikudou\PhpScad\Primitive\HasModuleDefinitions;
@@ -17,6 +19,7 @@ use Rikudou\PhpScad\Renderer\ScadFileRenderer;
 final class ScadModel
 {
     use GetWrappedRenderable;
+    use Wither;
 
     /**
      * @var array<Module>
@@ -27,6 +30,7 @@ final class ScadModel
      * @param array<Renderable>         $renderables
      * @param array<Module>             $modules
      * @param array<CustomizerVariable> $variables
+     * @param array<InjectedFont>       $customFonts
      */
     public function __construct(
         private readonly ?FacetsConfiguration $facetsConfiguration = null,
@@ -35,6 +39,7 @@ final class ScadModel
         array $modules = [],
         private readonly array $variables = [],
         private readonly bool $configurableFacets = false,
+        private readonly array $customFonts = [],
     ) {
         foreach ($modules as $key => $module) {
             if ($key !== $module->getName()) {
@@ -51,14 +56,7 @@ final class ScadModel
         $renderables = $this->renderables;
         $renderables[] = $shape;
 
-        return new self(
-            facetsConfiguration: $this->facetsConfiguration,
-            renderer: $this->renderer,
-            renderables: $renderables,
-            modules: $this->modules,
-            variables: $this->variables,
-            configurableFacets: $this->configurableFacets,
-        );
+        return $this->with('renderables', $renderables);
     }
 
     public function withModule(Module $module): self
@@ -66,26 +64,12 @@ final class ScadModel
         $modules = $this->modules;
         $modules[$module->getName()] = $module;
 
-        return new self(
-            facetsConfiguration: $this->facetsConfiguration,
-            renderer: $this->renderer,
-            renderables: $this->renderables,
-            modules: $modules,
-            variables: $this->variables,
-            configurableFacets: $this->configurableFacets,
-        );
+        return $this->with('modules', $modules);
     }
 
     public function withFacetsConfiguration(FacetsConfiguration $configuration): self
     {
-        return new self(
-            facetsConfiguration: $configuration,
-            renderer: $this->renderer,
-            renderables: $this->renderables,
-            modules: $this->modules,
-            variables: $this->variables,
-            configurableFacets: $this->configurableFacets,
-        );
+        return $this->with('facetsConfiguration', $configuration);
     }
 
     public function withVariable(CustomizerVariable $variable): self
@@ -93,14 +77,15 @@ final class ScadModel
         $variables = $this->variables;
         $variables[] = $variable;
 
-        return new self(
-            facetsConfiguration: $this->facetsConfiguration,
-            renderer: $this->renderer,
-            renderables: $this->renderables,
-            modules: $this->modules,
-            variables: $variables,
-            configurableFacets: $this->configurableFacets,
-        );
+        return $this->with('variables', $variables);
+    }
+
+    public function withFont(InjectedFont $font): self
+    {
+        $fonts = $this->customFonts;
+        $fonts[] = $font;
+
+        return $this->with('customFonts', $fonts);
     }
 
     public function render(string $outputFile): void
@@ -108,8 +93,14 @@ final class ScadModel
         $this->renderer->render($outputFile, $this->getScadContent());
     }
 
+    /** @noinspection PhpConcatenationWithEmptyStringCanBeInlinedInspection */
     public function getScadContent(): string
     {
+        $fonts = '';
+        foreach ($this->customFonts as $customFont) {
+            $fonts .= "use <{$customFont->getPath()}>\n";
+        }
+
         $modules = $this->modules;
         $customizerEndModule = new CustomizerEndModule();
         if (array_key_first($modules) !== $customizerEndModule->getName()) {
@@ -157,6 +148,7 @@ final class ScadModel
         }
 
         $result = '';
+        $result .= $fonts;
         if ($this->configurableFacets) {
             $result .= $facets;
         }
