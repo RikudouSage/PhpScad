@@ -14,8 +14,8 @@ This is what it's gonna look like:
 
 First we need to think about parameters. Width and height (in number of studs) is the first that comes to mind:
 
-- `int $studsX`
-- `int $studsY`
+- `int $studsAmountX`
+- `int $studsAmountY`
 
 Some optional ones might include:
 
@@ -68,17 +68,17 @@ final class Brick implements Renderable, HasWrappers
     use RenderableImplementation;
     use ValueConverter;
 
-    private IntValue|Reference $studsX;
-    private IntValue|Reference $studsY;
+    private IntValue|Reference $studsAmountX;
+    private IntValue|Reference $studsAmountY;
     private NumericValue|Reference $brickHeight;
 
     public function __construct(
-        IntValue|Reference|int $studsX,
-        IntValue|Reference|int $studsY,
+        IntValue|Reference|int $studsAmountX,
+        IntValue|Reference|int $studsAmountY,
         NumericValue|Reference|float $brickHeight = 9.6,
     ) {
-        $this->studsX = $this->convertToValue($studsX);
-        $this->studsY = $this->convertToValue($studsY);
+        $this->studsAmountX = $this->convertToValue($studsAmountX);
+        $this->studsAmountY = $this->convertToValue($studsAmountY);
         $this->brickHeight = $this->convertToValue($brickHeight);
     }
 
@@ -119,17 +119,17 @@ final class Brick implements Renderable, HasWrappers
     use RenderableImplementation;
     use ValueConverter;
 
-    private IntValue|Reference $studsX;
-    private IntValue|Reference $studsY;
+    private IntValue|Reference $studsAmountX;
+    private IntValue|Reference $studsAmountY;
     private NumericValue|Reference $brickHeight;
 
     public function __construct(
-        IntValue|Reference|int $studsX,
-        IntValue|Reference|int $studsY,
+        IntValue|Reference|int $studsAmountX,
+        IntValue|Reference|int $studsAmountY,
         NumericValue|Reference|float $brickHeight = 9.6,
     ) {
-        $this->studsX = $this->convertToValue($studsX);
-        $this->studsY = $this->convertToValue($studsY);
+        $this->studsAmountX = $this->convertToValue($studsAmountX);
+        $this->studsAmountY = $this->convertToValue($studsAmountY);
         $this->brickHeight = $this->convertToValue($brickHeight);
     }
 
@@ -152,12 +152,12 @@ final class Brick implements Renderable, HasWrappers
         $bottomCylinderRadius = 3.26;
 
         // let's calculate the final width and depth
-        $width = $this->studsX instanceof Reference
-            ? new Expression("{$studBaseSize} * {$this->studsX} - {$tolerances}")
-            : new FloatValue($studBaseSize * $this->studsX->getValue() - $tolerances);
-        $depth = $this->studsY instanceof Reference
-            ? new Expression("{$studBaseSize} * {$this->studsY} - {$tolerances}")
-            : new FloatValue($studBaseSize * $this->studsY->getValue() - $tolerances);
+        $width = $this->studsAmountX instanceof Reference
+            ? new Expression("{$studBaseSize} * {$this->studsAmountX} - {$tolerances}")
+            : new FloatValue($studBaseSize * $this->studsAmountX->getValue() - $tolerances);
+        $depth = $this->studsAmountY instanceof Reference
+            ? new Expression("{$studBaseSize} * {$this->studsAmountY} - {$tolerances}")
+            : new FloatValue($studBaseSize * $this->studsAmountY->getValue() - $tolerances);
     }
 }
 ```
@@ -195,17 +195,17 @@ final class Brick implements Renderable, HasWrappers
     use ValueConverter;
     use AliasShape;
 
-    private IntValue|Reference $studsX;
-    private IntValue|Reference $studsY;
+    private IntValue|Reference $studsAmountX;
+    private IntValue|Reference $studsAmountY;
     private NumericValue|Reference $brickHeight;
 
     public function __construct(
-        IntValue|Reference|int $studsX,
-        IntValue|Reference|int $studsY,
+        IntValue|Reference|int $studsAmountX,
+        IntValue|Reference|int $studsAmountY,
         NumericValue|Reference|float $brickHeight = 9.6,
     ) {
-        $this->studsX = $this->convertToValue($studsX);
-        $this->studsY = $this->convertToValue($studsY);
+        $this->studsAmountX = $this->convertToValue($studsAmountX);
+        $this->studsAmountY = $this->convertToValue($studsAmountY);
         $this->brickHeight = $this->convertToValue($brickHeight);
     }
 
@@ -228,12 +228,12 @@ final class Brick implements Renderable, HasWrappers
         $bottomCylinderRadius = 3.26;
 
         // let's calculate the final width and depth
-        $width = $this->studsX instanceof Reference
-            ? new Expression("{$studBaseSize} * {$this->studsX} - {$tolerances}")
-            : new FloatValue($studBaseSize * $this->studsX->getValue() - $tolerances);
-        $depth = $this->studsY instanceof Reference
-            ? new Expression("{$studBaseSize} * {$this->studsY} - {$tolerances}")
-            : new FloatValue($studBaseSize * $this->studsY->getValue() - $tolerances);
+        $width = $this->studsAmountX instanceof Reference
+            ? new Expression("{$studBaseSize} * {$this->studsAmountX} - {$tolerances}")
+            : new FloatValue($studBaseSize * $this->studsAmountX->getValue() - $tolerances);
+        $depth = $this->studsAmountY instanceof Reference
+            ? new Expression("{$studBaseSize} * {$this->studsAmountY} - {$tolerances}")
+            : new FloatValue($studBaseSize * $this->studsAmountY->getValue() - $tolerances);
     }
 }
 ```
@@ -359,17 +359,17 @@ final class Brick implements Renderable, HasWrappers
     use ValueConverter;
     use AliasShape;
 
-    private IntValue|Reference $studsX;
-    private IntValue|Reference $studsY;
+    private IntValue|Reference $studsAmountX;
+    private IntValue|Reference $studsAmountY;
     private NumericValue|Reference $brickHeight;
 
     public function __construct(
-        IntValue|Reference|int $studsX,
-        IntValue|Reference|int $studsY,
+        IntValue|Reference|int $studsAmountX,
+        IntValue|Reference|int $studsAmountY,
         NumericValue|Reference|float $brickHeight = 9.6,
     ) {
-        $this->studsX = $this->convertToValue($studsX);
-        $this->studsY = $this->convertToValue($studsY);
+        $this->studsAmountX = $this->convertToValue($studsAmountX);
+        $this->studsAmountY = $this->convertToValue($studsAmountY);
         $this->brickHeight = $this->convertToValue($brickHeight);
     }
 
@@ -392,12 +392,12 @@ final class Brick implements Renderable, HasWrappers
         $bottomCylinderRadius = 3.26;
 
         // let's calculate the final width and depth
-        $width = $this->studsX instanceof Reference
-            ? new Expression("{$studBaseSize} * {$this->studsX} - {$tolerances}")
-            : new FloatValue($studBaseSize * $this->studsX->getValue() - $tolerances);
-        $depth = $this->studsY instanceof Reference
-            ? new Expression("{$studBaseSize} * {$this->studsY} - {$tolerances}")
-            : new FloatValue($studBaseSize * $this->studsY->getValue() - $tolerances);
+        $width = $this->studsAmountX instanceof Reference
+            ? new Expression("{$studBaseSize} * {$this->studsAmountX} - {$tolerances}")
+            : new FloatValue($studBaseSize * $this->studsAmountX->getValue() - $tolerances);
+        $depth = $this->studsAmountY instanceof Reference
+            ? new Expression("{$studBaseSize} * {$this->studsAmountY} - {$tolerances}")
+            : new FloatValue($studBaseSize * $this->studsAmountY->getValue() - $tolerances);
 
         $brick = (new Cube(
             width: $width,
@@ -454,8 +454,8 @@ final class Brick implements Renderable, HasWrappers
     use ValueConverter;
     use AliasShape;
 
-    private IntValue|Reference $studsX;
-    private IntValue|Reference $studsY;
+    private IntValue|Reference $studsAmountX;
+    private IntValue|Reference $studsAmountY;
     private NumericValue|Reference $brickHeight;
 
     private int $studBaseSize = 8;
@@ -486,8 +486,8 @@ When using literals, it's fairly easy, you just iterate over all the values and 
 
 ```php
 $studs = [];
-for ($x = 1; $x <= $this->studsX->getValue(); ++$x) {
-    for ($y = 1; $y <= $this->studsY->getValue(); ++$y) {
+for ($x = 1; $x <= $this->studsAmountX->getValue(); ++$x) {
+    for ($y = 1; $y <= $this->studsAmountY->getValue(); ++$y) {
         $stud = $this->createStudCylinder()
             ->movedLeft($x * $this->studBaseSize)
             ->movedUp($y * $this->studBaseSize);
@@ -507,8 +507,8 @@ Now let's move it to the correct position:
 
 ```php
 $studs = $studs
-    ->movedLeft(($this->studsX->getValue() + 1) * $this->studBaseSize / 2)
-    ->movedDown(($this->studsY->getValue() + 1) * $this->studBaseSize / 2)
+    ->movedLeft(($this->studsAmountX->getValue() + 1) * $this->studBaseSize / 2)
+    ->movedDown(($this->studsAmountY->getValue() + 1) * $this->studBaseSize / 2)
     ->movedUpOnZ($this->brickHeight)
 ;
 ```
@@ -526,7 +526,7 @@ We will use `RenderableExpression` for that:
 
 ```php
 $studs = new RenderableExpression(
-"for (x = [1 : {$this->studsX}], y = [1 : {$this->studsY}]) {
+"for (x = [1 : {$this->studsAmountX}], y = [1 : {$this->studsAmountY}]) {
      translate([x * {$this->studBaseSize}, y * {$this->studBaseSize}, 0]) {
          {$this->createStudCylinder()->render()}
      }
@@ -535,7 +535,7 @@ $studs = new RenderableExpression(
 ```
 
 You need to know a bit of OpenSCAD syntax for that, but the for loop seems simple enough - instead of in php
-we embed the for loop directly in the OpenSCAD code and we can make use of the php variables like `$studsX`, `$studsY`,
+we embed the for loop directly in the OpenSCAD code and we can make use of the php variables like `$studsAmountX`, `$studsAmountY`,
 `$studBaseSize` and we can even directly render a `Renderable` inside the code by calling its `render()` method.
 
 Sadly we're not done here, if we ran the code now we would get this error in OpenSCAD:
@@ -556,7 +556,7 @@ the information on modules manually as a second parameter:
 
 ```php
 $studs = new RenderableExpression(
-       "for (x = [1 : {$this->studsX}], y = [1 : {$this->studsY}]) {
+       "for (x = [1 : {$this->studsAmountX}], y = [1 : {$this->studsAmountY}]) {
             translate([x * {$this->studBaseSize}, y * {$this->studBaseSize}, 0]) {
                 {$this->createStudCylinder()->render()}
             }
@@ -571,8 +571,8 @@ Now we need to move it to the correct position as well:
 
 ```php
 $studs = $studs
-    ->movedLeft(new Expression("({$this->studsX} + 1) * {$this->studBaseSize} / 2"))
-    ->movedDown(new Expression("({$this->studsY} + 1) * {$this->studBaseSize} / 2"))
+    ->movedLeft(new Expression("({$this->studsAmountX} + 1) * {$this->studBaseSize} / 2"))
+    ->movedDown(new Expression("({$this->studsAmountY} + 1) * {$this->studBaseSize} / 2"))
     ->movedUpOnZ($this->brickHeight)
 ;
 ```
@@ -580,9 +580,9 @@ $studs = $studs
 This is what this part looks like whole:
 
 ```php
-if ($this->studsX instanceof Reference || $this->studsY instanceof Reference) {
+if ($this->studsAmountX instanceof Reference || $this->studsAmountY instanceof Reference) {
     $studs = new RenderableExpression(
-        "for (x = [1 : {$this->studsX}], y = [1 : {$this->studsY}]) {
+        "for (x = [1 : {$this->studsAmountX}], y = [1 : {$this->studsAmountY}]) {
              translate([x * {$this->studBaseSize}, y * {$this->studBaseSize}, 0]) {
                  {$this->createStudCylinder()->render()}
              }
@@ -592,14 +592,14 @@ if ($this->studsX instanceof Reference || $this->studsY instanceof Reference) {
         ],
     );
     $studs = $studs
-        ->movedLeft(new Expression("({$this->studsX} + 1) * {$this->studBaseSize} / 2"))
-        ->movedDown(new Expression("({$this->studsY} + 1) * {$this->studBaseSize} / 2"))
+        ->movedLeft(new Expression("({$this->studsAmountX} + 1) * {$this->studBaseSize} / 2"))
+        ->movedDown(new Expression("({$this->studsAmountY} + 1) * {$this->studBaseSize} / 2"))
         ->movedUpOnZ($this->brickHeight)
     ;
 } else {
     $studs = [];
-    for ($x = 1; $x <= $this->studsX->getValue(); ++$x) {
-        for ($y = 1; $y <= $this->studsY->getValue(); ++$y) {
+    for ($x = 1; $x <= $this->studsAmountX->getValue(); ++$x) {
+        for ($y = 1; $y <= $this->studsAmountY->getValue(); ++$y) {
             $stud = $this->createStudCylinder()
                 ->movedRight($x * $this->studBaseSize)
                 ->movedUp($y * $this->studBaseSize);
@@ -608,8 +608,8 @@ if ($this->studsX instanceof Reference || $this->studsY instanceof Reference) {
     }
     $studs = new RenderableContainer(...$studs);
     $studs = $studs
-        ->movedLeft(($this->studsX->getValue() + 1) * $this->studBaseSize / 2)
-        ->movedDown(($this->studsY->getValue() + 1) * $this->studBaseSize / 2)
+        ->movedLeft(($this->studsAmountX->getValue() + 1) * $this->studBaseSize / 2)
+        ->movedDown(($this->studsAmountY->getValue() + 1) * $this->studBaseSize / 2)
         ->movedUpOnZ($this->brickHeight)
     ;
 }
@@ -641,8 +641,8 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
     use ValueConverter;
     use AliasShape;
 
-    private IntValue|Reference $studsX;
-    private IntValue|Reference $studsY;
+    private IntValue|Reference $studsAmountX;
+    private IntValue|Reference $studsAmountY;
     private NumericValue|Reference $brickHeight;
 
     private int $studBaseSize = 8;
@@ -650,12 +650,12 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
     private float $studRadius = 2.4;
 
     public function __construct(
-        IntValue|Reference|int $studsX,
-        IntValue|Reference|int $studsY,
+        IntValue|Reference|int $studsAmountX,
+        IntValue|Reference|int $studsAmountY,
         NumericValue|Reference|float $brickHeight = 9.6,
     ) {
-        $this->studsX = $this->convertToValue($studsX);
-        $this->studsY = $this->convertToValue($studsY);
+        $this->studsAmountX = $this->convertToValue($studsAmountX);
+        $this->studsAmountY = $this->convertToValue($studsAmountY);
         $this->brickHeight = $this->convertToValue($brickHeight);
     }
 
@@ -672,12 +672,12 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
         $bottomCylinderRadius = 3.26;
 
         // let's calculate the final width and depth
-        $width = $this->studsX instanceof Reference
-            ? new Expression("{$this->studBaseSize} * {$this->studsX} - {$tolerances}")
-            : new FloatValue($this->studBaseSize * $this->studsX->getValue() - $tolerances);
-        $depth = $this->studsY instanceof Reference
-            ? new Expression("{$this->studBaseSize} * {$this->studsY} - {$tolerances}")
-            : new FloatValue($this->studBaseSize * $this->studsY->getValue() - $tolerances);
+        $width = $this->studsAmountX instanceof Reference
+            ? new Expression("{$this->studBaseSize} * {$this->studsAmountX} - {$tolerances}")
+            : new FloatValue($this->studBaseSize * $this->studsAmountX->getValue() - $tolerances);
+        $depth = $this->studsAmountY instanceof Reference
+            ? new Expression("{$this->studBaseSize} * {$this->studsAmountY} - {$tolerances}")
+            : new FloatValue($this->studBaseSize * $this->studsAmountY->getValue() - $tolerances);
 
         $brick = (new Cube(
             width: $width,
@@ -718,9 +718,9 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
 
         $brick = $brick->subtractedWith($innerCut);
 
-        if ($this->studsX instanceof Reference || $this->studsY instanceof Reference) {
+        if ($this->studsAmountX instanceof Reference || $this->studsAmountY instanceof Reference) {
             $studs = new RenderableExpression(
-            "for (x = [1 : {$this->studsX}], y = [1 : {$this->studsY}]) {
+            "for (x = [1 : {$this->studsAmountX}], y = [1 : {$this->studsAmountY}]) {
                            translate([x * {$this->studBaseSize}, y * {$this->studBaseSize}, 0]) {
                                {$this->createStudCylinder()->render()}
                            }
@@ -730,14 +730,14 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
                 ],
             );
             $studs = $studs
-                ->movedLeft(new Expression("({$this->studsX} + 1) * {$this->studBaseSize} / 2"))
-                ->movedDown(new Expression("({$this->studsY} + 1) * {$this->studBaseSize} / 2"))
+                ->movedLeft(new Expression("({$this->studsAmountX} + 1) * {$this->studBaseSize} / 2"))
+                ->movedDown(new Expression("({$this->studsAmountY} + 1) * {$this->studBaseSize} / 2"))
                 ->movedUpOnZ($this->brickHeight)
             ;
         } else {
             $studs = [];
-            for ($x = 1; $x <= $this->studsX->getValue(); ++$x) {
-                for ($y = 1; $y <= $this->studsY->getValue(); ++$y) {
+            for ($x = 1; $x <= $this->studsAmountX->getValue(); ++$x) {
+                for ($y = 1; $y <= $this->studsAmountY->getValue(); ++$y) {
                     $stud = $this->createStudCylinder()
                         ->movedRight($x * $this->studBaseSize)
                         ->movedUp($y * $this->studBaseSize);
@@ -746,8 +746,8 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
             }
             $studs = new RenderableContainer(...$studs);
             $studs = $studs
-                ->movedLeft(($this->studsX->getValue() + 1) * $this->studBaseSize / 2)
-                ->movedDown(($this->studsY->getValue() + 1) * $this->studBaseSize / 2)
+                ->movedLeft(($this->studsAmountX->getValue() + 1) * $this->studBaseSize / 2)
+                ->movedDown(($this->studsAmountY->getValue() + 1) * $this->studBaseSize / 2)
                 ->movedUpOnZ($this->brickHeight)
             ;
         }
@@ -809,22 +809,22 @@ down on Z axis by 0.01 to prevent flickering and wrong rendering
 Here comes another for loop to generate the correct number of cylinders on the correct positions:
 
 ```php
-if ($this->studsX instanceof Reference || $this->studsY instanceof Reference) {
+if ($this->studsAmountX instanceof Reference || $this->studsAmountY instanceof Reference) {
     $bottomCylinders = new RenderableExpression(
-          "for (x = [1 : {$this->studsX} - 1], y = [1 : {$this->studsY} - 1]) {
+          "for (x = [1 : {$this->studsAmountX} - 1], y = [1 : {$this->studsAmountY} - 1]) {
               translate([x * {$this->studBaseSize}, y * {$this->studBaseSize}, 0]) {
                   {$this->createBottomCylinder()->render()}
               }
           }"
     );
     $bottomCylinders = $bottomCylinders
-        ->movedLeft(new Expression("{$this->studsX} * {$this->studBaseSize} / 2"))
-        ->movedDown(new Expression("{$this->studsY} * {$this->studBaseSize} / 2"))
+        ->movedLeft(new Expression("{$this->studsAmountX} * {$this->studBaseSize} / 2"))
+        ->movedDown(new Expression("{$this->studsAmountY} * {$this->studBaseSize} / 2"))
     ;
 } else {
     $bottomCylinders = [];
-    for ($x = 1; $x < $this->studsX->getValue(); ++$x) {
-        for ($y = 1; $y < $this->studsY->getValue(); ++$y) {
+    for ($x = 1; $x < $this->studsAmountX->getValue(); ++$x) {
+        for ($y = 1; $y < $this->studsAmountY->getValue(); ++$y) {
             $bottomCylinders[] = $this->createBottomCylinder()
                 ->movedRight($x * $this->studBaseSize)
                 ->movedUp($y * $this->studBaseSize)
@@ -833,8 +833,8 @@ if ($this->studsX instanceof Reference || $this->studsY instanceof Reference) {
     }
     $bottomCylinders = new RenderableContainer(...$bottomCylinders);
     $bottomCylinders = $bottomCylinders
-        ->movedLeft($this->studsX->getValue() * $this->studBaseSize / 2)
-        ->movedDown($this->studsY->getValue() * $this->studBaseSize / 2)
+        ->movedLeft($this->studsAmountX->getValue() * $this->studBaseSize / 2)
+        ->movedDown($this->studsAmountY->getValue() * $this->studBaseSize / 2)
     ;
 }
 ```
@@ -877,8 +877,8 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
     use ValueConverter;
     use AliasShape;
 
-    private IntValue|Reference $studsX;
-    private IntValue|Reference $studsY;
+    private IntValue|Reference $studsAmountX;
+    private IntValue|Reference $studsAmountY;
     private NumericValue|Reference $brickHeight;
 
     private int $studBaseSize = 8;
@@ -888,12 +888,12 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
     private float $bottomCylinderWallThickness = 1;
 
     public function __construct(
-        IntValue|Reference|int $studsX,
-        IntValue|Reference|int $studsY,
+        IntValue|Reference|int $studsAmountX,
+        IntValue|Reference|int $studsAmountY,
         NumericValue|Reference|float $brickHeight = 9.6,
     ) {
-        $this->studsX = $this->convertToValue($studsX);
-        $this->studsY = $this->convertToValue($studsY);
+        $this->studsAmountX = $this->convertToValue($studsAmountX);
+        $this->studsAmountY = $this->convertToValue($studsAmountY);
         $this->brickHeight = $this->convertToValue($brickHeight);
     }
 
@@ -908,12 +908,12 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
         $topWallThickness = 1.5;
 
         // let's calculate the final width and depth
-        $width = $this->studsX instanceof Reference
-            ? new Expression("{$this->studBaseSize} * {$this->studsX} - {$tolerances}")
-            : new FloatValue($this->studBaseSize * $this->studsX->getValue() - $tolerances);
-        $depth = $this->studsY instanceof Reference
-            ? new Expression("{$this->studBaseSize} * {$this->studsY} - {$tolerances}")
-            : new FloatValue($this->studBaseSize * $this->studsY->getValue() - $tolerances);
+        $width = $this->studsAmountX instanceof Reference
+            ? new Expression("{$this->studBaseSize} * {$this->studsAmountX} - {$tolerances}")
+            : new FloatValue($this->studBaseSize * $this->studsAmountX->getValue() - $tolerances);
+        $depth = $this->studsAmountY instanceof Reference
+            ? new Expression("{$this->studBaseSize} * {$this->studsAmountY} - {$tolerances}")
+            : new FloatValue($this->studBaseSize * $this->studsAmountY->getValue() - $tolerances);
 
         $brick = (new Cube(
             width: $width,
@@ -954,9 +954,9 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
 
         $brick = $brick->subtractedWith($innerCut);
 
-        if ($this->studsX instanceof Reference || $this->studsY instanceof Reference) {
+        if ($this->studsAmountX instanceof Reference || $this->studsAmountY instanceof Reference) {
             $studs = new RenderableExpression(
-            "for (x = [1 : {$this->studsX}], y = [1 : {$this->studsY}]) {
+            "for (x = [1 : {$this->studsAmountX}], y = [1 : {$this->studsAmountY}]) {
                            translate([x * {$this->studBaseSize}, y * {$this->studBaseSize}, 0]) {
                                {$this->createStudCylinder()->render()}
                            }
@@ -966,14 +966,14 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
                 ],
             );
             $studs = $studs
-                ->movedLeft(new Expression("({$this->studsX} + 1) * {$this->studBaseSize} / 2"))
-                ->movedDown(new Expression("({$this->studsY} + 1) * {$this->studBaseSize} / 2"))
+                ->movedLeft(new Expression("({$this->studsAmountX} + 1) * {$this->studBaseSize} / 2"))
+                ->movedDown(new Expression("({$this->studsAmountY} + 1) * {$this->studBaseSize} / 2"))
                 ->movedUpOnZ($this->brickHeight)
             ;
         } else {
             $studs = [];
-            for ($x = 1; $x <= $this->studsX->getValue(); ++$x) {
-                for ($y = 1; $y <= $this->studsY->getValue(); ++$y) {
+            for ($x = 1; $x <= $this->studsAmountX->getValue(); ++$x) {
+                for ($y = 1; $y <= $this->studsAmountY->getValue(); ++$y) {
                     $stud = $this->createStudCylinder()
                         ->movedRight($x * $this->studBaseSize)
                         ->movedUp($y * $this->studBaseSize);
@@ -982,28 +982,28 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
             }
             $studs = new RenderableContainer(...$studs);
             $studs = $studs
-                ->movedLeft(($this->studsX->getValue() + 1) * $this->studBaseSize / 2)
-                ->movedDown(($this->studsY->getValue() + 1) * $this->studBaseSize / 2)
+                ->movedLeft(($this->studsAmountX->getValue() + 1) * $this->studBaseSize / 2)
+                ->movedDown(($this->studsAmountY->getValue() + 1) * $this->studBaseSize / 2)
                 ->movedUpOnZ($this->brickHeight)
             ;
         }
 
-        if ($this->studsX instanceof Reference || $this->studsY instanceof Reference) {
+        if ($this->studsAmountX instanceof Reference || $this->studsAmountY instanceof Reference) {
             $bottomCylinders = new RenderableExpression(
-                  "for (x = [1 : {$this->studsX} - 1], y = [1 : {$this->studsY} - 1]) {
+                  "for (x = [1 : {$this->studsAmountX} - 1], y = [1 : {$this->studsAmountY} - 1]) {
                                 translate([x * {$this->studBaseSize}, y * {$this->studBaseSize}, 0]) {
                                     {$this->createBottomCylinder()->render()}
                                 }
                             }"
             );
             $bottomCylinders = $bottomCylinders
-                ->movedLeft(new Expression("{$this->studsX} * {$this->studBaseSize} / 2"))
-                ->movedDown(new Expression("{$this->studsY} * {$this->studBaseSize} / 2"))
+                ->movedLeft(new Expression("{$this->studsAmountX} * {$this->studBaseSize} / 2"))
+                ->movedDown(new Expression("{$this->studsAmountY} * {$this->studBaseSize} / 2"))
             ;
         } else {
             $bottomCylinders = [];
-            for ($x = 1; $x < $this->studsX->getValue(); ++$x) {
-                for ($y = 1; $y < $this->studsY->getValue(); ++$y) {
+            for ($x = 1; $x < $this->studsAmountX->getValue(); ++$x) {
+                for ($y = 1; $y < $this->studsAmountY->getValue(); ++$y) {
                     $bottomCylinders[] = $this->createBottomCylinder()
                         ->movedRight($x * $this->studBaseSize)
                         ->movedUp($y * $this->studBaseSize)
@@ -1012,8 +1012,8 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
             }
             $bottomCylinders = new RenderableContainer(...$bottomCylinders);
             $bottomCylinders = $bottomCylinders
-                ->movedLeft($this->studsX->getValue() * $this->studBaseSize / 2)
-                ->movedDown($this->studsY->getValue() * $this->studBaseSize / 2)
+                ->movedLeft($this->studsAmountX->getValue() * $this->studBaseSize / 2)
+                ->movedDown($this->studsAmountY->getValue() * $this->studBaseSize / 2)
             ;
         }
 
@@ -1098,11 +1098,11 @@ use Rikudou\PhpScad\Shape\Brick;
 use Rikudou\PhpScad\Value\Variable;
 
 (new ScadModel(facetsConfiguration: new FacetsNumber(60)))
-    ->withVariable(new IntCustomizerVariable('studsX', 2))
-    ->withVariable(new IntCustomizerVariable('studsY', 2))
+    ->withVariable(new IntCustomizerVariable('studsAmountX', 2))
+    ->withVariable(new IntCustomizerVariable('studsAmountY', 2))
     ->withVariable(new FloatCustomizerVariable('brickHeight', 9.6))
     ->withRenderable(
-        new Brick(new Variable('studsX'), new Variable('studsY'), new Variable('brickHeight')),
+        new Brick(new Variable('studsAmountX'), new Variable('studsAmountY'), new Variable('brickHeight')),
     )
     ->render(__DIR__ . '/brick_configurable.scad');
 ```
