@@ -1134,3 +1134,11 @@ use Rikudou\PhpScad\Value\Variable;
 
 This concludes this tutorial, we've made a fully configurable brick compatible with *those other bricks*,
 and we're ready to conquer the world with our mad PHP 3D modeling skills!
+
+
+## Bonus pictures — 3D printed
+
+If you've been wondering how the model looks 3D printed, here you go:
+
+![3D Printed Brick](img/brick-print-01.jpg)
+![3D Printed Brick](img/brick-print-02.jpg)
