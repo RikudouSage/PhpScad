@@ -1109,5 +1109,5 @@ use Rikudou\PhpScad\Value\Variable;
 
 ![Step 9](img/brick-09.png)
 
-This concludes this tutorial, we've made a fully configurable brick compatible with **those other bricks**,
+This concludes this tutorial, we've made a fully configurable brick compatible with *those other bricks*,
 and we're ready to conquer the world with our mad PHP 3D modeling skills!

@@ -641,3 +641,5 @@ difference() {cube([22, 42, 25.2]);translate([1, 1, 0.2]) {cube([20, 40, 25.01])
 And more importantly this model:
 
 ![Room 3D model](img/room.png)
+
+This concludes this tutorial, you can continue onto [making a brick model](brick.md).
