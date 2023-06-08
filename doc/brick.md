@@ -1064,7 +1064,7 @@ final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
 
 ## Final touches
 
-It wouldn't be a tutorial made by me if there wasn't some personal gimmick of me.
+It wouldn't be a tutorial made by me if there wasn't some personal gimmick of mine.
 
 Currently, this whole shape is centered while I like my shapes having the bottom left corner at the [0,0,0] position.
 
