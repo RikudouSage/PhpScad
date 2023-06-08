@@ -5,6 +5,7 @@ namespace Rikudou\PhpScad\Shape\TwoDimensional;
 use Rikudou\PhpScad\Implementation\ConditionalRenderable;
 use Rikudou\PhpScad\Implementation\TwoDimensionalShapeImplementation;
 use Rikudou\PhpScad\Implementation\ValueConverter;
+use Rikudou\PhpScad\Implementation\Wither;
 use Rikudou\PhpScad\Primitive\TwoDimensionalShape;
 use Rikudou\PhpScad\Value\BoolValue;
 use Rikudou\PhpScad\Value\NumericValue;
@@ -15,6 +16,7 @@ final class Square implements TwoDimensionalShape
     use ConditionalRenderable;
     use ValueConverter;
     use TwoDimensionalShapeImplementation;
+    use Wither;
 
     private NumericValue|Reference $width;
 
@@ -31,6 +33,36 @@ final class Square implements TwoDimensionalShape
         $this->width = $this->convertToValue($width);
         $this->height = $this->convertToValue($height);
         $this->center = $this->convertToValue($center);
+    }
+
+    public function getWidth(): Reference|NumericValue
+    {
+        return $this->width;
+    }
+
+    public function getHeight(): Reference|NumericValue
+    {
+        return $this->height;
+    }
+
+    public function getCenter(): Reference|BoolValue
+    {
+        return $this->center;
+    }
+
+    public function withWidth(NumericValue|Reference|float $width): self
+    {
+        return $this->with('width', $this->convertToValue($width));
+    }
+
+    public function withHeight(NumericValue|Reference|float $height): self
+    {
+        return $this->with('height', $this->convertToValue($height));
+    }
+
+    public function withCenter(BoolValue|Reference|bool $center): self
+    {
+        return $this->with('center', $this->convertToValue($center));
     }
 
     protected function doRender(): string

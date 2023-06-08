@@ -7,6 +7,7 @@ use Rikudou\PhpScad\Implementation\ConditionalRenderable;
 use Rikudou\PhpScad\Implementation\FacetsConfigImplementation;
 use Rikudou\PhpScad\Implementation\TwoDimensionalShapeImplementation;
 use Rikudou\PhpScad\Implementation\ValueConverter;
+use Rikudou\PhpScad\Implementation\Wither;
 use Rikudou\PhpScad\Primitive\HasFacetsConfig;
 use Rikudou\PhpScad\Primitive\TwoDimensionalShape;
 use Rikudou\PhpScad\Value\NullValue;
@@ -19,6 +20,7 @@ final class Circle implements TwoDimensionalShape, HasFacetsConfig
     use FacetsConfigImplementation;
     use ValueConverter;
     use TwoDimensionalShapeImplementation;
+    use Wither;
 
     private NumericValue|Reference|NullValue $radius;
 
@@ -34,6 +36,26 @@ final class Circle implements TwoDimensionalShape, HasFacetsConfig
 
         $this->radius = $this->convertToValue($radius);
         $this->diameter = $this->convertToValue($diameter);
+    }
+
+    public function getRadius(): NullValue|Reference|NumericValue
+    {
+        return $this->radius;
+    }
+
+    public function getDiameter(): NullValue|Reference|NumericValue
+    {
+        return $this->diameter;
+    }
+
+    public function withRadius(NumericValue|Reference|NullValue|float|null $radius): self
+    {
+        return $this->with('radius', $this->convertToValue($radius));
+    }
+
+    public function withDiameter(NumericValue|Reference|NullValue|float|null $diameter): self
+    {
+        return $this->with('diameter', $this->convertToValue($diameter));
     }
 
     protected function doRender(): string

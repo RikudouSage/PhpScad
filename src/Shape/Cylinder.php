@@ -45,6 +45,7 @@ final class Cylinder implements Renderable, HasFacetsConfig, HasModuleDefinition
 
     private BoolValue|Reference $centerOnXY;
 
+    /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
     public function __construct(
         NumericValue|Reference|float $height = 0,
         NumericValue|Reference|NullValue|float|null $radius = null,
@@ -68,6 +69,51 @@ final class Cylinder implements Renderable, HasFacetsConfig, HasModuleDefinition
         $this->topDiameter = $this->convertToValue($topDiameter);
         $this->centerOnZ = $this->convertToValue($centerOnZ);
         $this->centerOnXY = $this->convertToValue($centerOnXY);
+    }
+
+    public function getHeight(): Reference|NumericValue
+    {
+        return $this->height;
+    }
+
+    public function getRadius(): NullValue|Reference|NumericValue
+    {
+        return $this->radius;
+    }
+
+    public function getBottomRadius(): NullValue|Reference|NumericValue
+    {
+        return $this->bottomRadius;
+    }
+
+    public function getTopRadius(): NullValue|Reference|NumericValue
+    {
+        return $this->topRadius;
+    }
+
+    public function getDiameter(): NullValue|Reference|NumericValue
+    {
+        return $this->diameter;
+    }
+
+    public function getBottomDiameter(): NullValue|Reference|NumericValue
+    {
+        return $this->bottomDiameter;
+    }
+
+    public function getTopDiameter(): NullValue|Reference|NumericValue
+    {
+        return $this->topDiameter;
+    }
+
+    public function getCenterOnXY(): Reference|BoolValue
+    {
+        return $this->centerOnXY;
+    }
+
+    public function getCenterOnZ(): Reference|BoolValue
+    {
+        return $this->centerOnZ;
     }
 
     public function withHeight(NumericValue|Reference|float $height): self

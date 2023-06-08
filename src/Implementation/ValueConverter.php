@@ -2,6 +2,8 @@
 
 namespace Rikudou\PhpScad\Implementation;
 
+use BackedEnum;
+use IntBackedEnum;
 use InvalidArgumentException;
 use Rikudou\PhpScad\Value\BoolValue;
 use Rikudou\PhpScad\Value\Face;
@@ -15,11 +17,12 @@ use Rikudou\PhpScad\Value\PointVector;
 use Rikudou\PhpScad\Value\StringValue;
 use Rikudou\PhpScad\Value\Value;
 use Rikudou\PhpScad\Value\VectorValue;
+use StringBackedEnum;
 
 trait ValueConverter
 {
     private function convertToValue(
-        Value|int|float|null|bool|array|string $value,
+        Value|BackedEnum|int|float|null|bool|array|string $value,
         string $mapEmptyArrayTo = VectorValue::class,
     ): Value {
         if ($value instanceof Value) {
@@ -42,6 +45,13 @@ trait ValueConverter
         }
         if (is_string($value)) {
             return new StringValue($value);
+        }
+
+        if ($value instanceof IntBackedEnum) {
+            return new IntValue($value->value);
+        }
+        if ($value instanceof StringBackedEnum) {
+            return new StringValue($value->value);
         }
 
         if ($this->isPointsVector($value, is_a($mapEmptyArrayTo, PointVector::class, true))) {

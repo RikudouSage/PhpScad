@@ -3,11 +3,12 @@
 namespace Rikudou\PhpScad\Font;
 
 use Rikudou\PhpScad\Exception\UnspecifiedFontNameException;
+use Rikudou\PhpScad\Exception\UnspecifiedFontPathException;
 
 final class CustomFont implements FontReference, InjectedFont
 {
     public function __construct(
-        private readonly string $path,
+        private readonly ?string $path = null,
         private readonly ?string $logicalName = null,
     ) {
     }
@@ -25,6 +26,7 @@ final class CustomFont implements FontReference, InjectedFont
 
     public function getPath(): string
     {
-        return $this->path;
+        return $this->path
+            ?? throw new UnspecifiedFontPathException("You're trying to use the font as a font import without providing a path to the font file.");
     }
 }

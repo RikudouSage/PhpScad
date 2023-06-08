@@ -26,6 +26,7 @@ final class Cube implements Renderable, HasWrappers
 
     private NumericValue|Reference $height;
 
+    /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
     public function __construct(
         NumericValue|Reference|float $width = 0,
         NumericValue|Reference|float $depth = 0,

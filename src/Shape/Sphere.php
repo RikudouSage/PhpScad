@@ -34,6 +34,7 @@ final class Sphere implements Renderable, HasFacetsConfig, HasModuleDefinitions,
 
     private Reference|BoolValue $center;
 
+    /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
     public function __construct(
         Reference|NumericValue|NullValue|float|null $radius = null,
         Reference|NumericValue|NullValue|float|null $diameter = null,
@@ -47,9 +48,19 @@ final class Sphere implements Renderable, HasFacetsConfig, HasModuleDefinitions,
         $this->center = $this->convertToValue($center);
     }
 
-    public function getRadius(): Reference|NumericValue|NullValue
+    public function getRadius(): NullValue|Reference|NumericValue
     {
         return $this->radius;
+    }
+
+    public function getDiameter(): NullValue|Reference|NumericValue
+    {
+        return $this->diameter;
+    }
+
+    public function getCenter(): Reference|BoolValue
+    {
+        return $this->center;
     }
 
     public function withRadius(Reference|NumericValue|NullValue|float|null $radius): self
@@ -57,19 +68,9 @@ final class Sphere implements Renderable, HasFacetsConfig, HasModuleDefinitions,
         return $this->with('radius', $this->convertToValue($radius));
     }
 
-    public function getDiameter(): Reference|NumericValue|NullValue
-    {
-        return $this->diameter;
-    }
-
     public function withDiameter(Reference|NumericValue|NullValue|float|null $diameter): self
     {
         return $this->with('diameter', $this->convertToValue($diameter));
-    }
-
-    public function isCentered(): BoolValue
-    {
-        return $this->center;
     }
 
     public function withCentered(bool|BoolValue $centered): self

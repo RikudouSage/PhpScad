@@ -29,6 +29,8 @@ final class Polyhedron implements Renderable, HasWrappers
 
     /**
      * @param FaceVector|Reference|array<Face> $faces
+     *
+     * @noinspection PhpFieldAssignmentTypeMismatchInspection
      */
     public function __construct(
         PointVector|Reference|array $points = new PointVector(),
@@ -38,6 +40,36 @@ final class Polyhedron implements Renderable, HasWrappers
         $this->points = $this->convertToValue($points, mapEmptyArrayTo: PointVector::class);
         $this->faces = $this->convertToValue($faces, mapEmptyArrayTo: FaceVector::class);
         $this->convexity = $this->convertToValue($convexity);
+    }
+
+    public function getPoints(): Reference|PointVector
+    {
+        return $this->points;
+    }
+
+    public function getFaces(): FaceVector|Reference
+    {
+        return $this->faces;
+    }
+
+    public function getConvexity(): IntValue|Reference
+    {
+        return $this->convexity;
+    }
+
+    public function withPoints(PointVector|Reference|array $points): self
+    {
+        return $this->with('points', $this->convertToValue($points, mapEmptyArrayTo: PointVector::class));
+    }
+
+    public function withFaces(FaceVector|Reference|array $faces): self
+    {
+        return $this->with('faces', $this->convertToValue($faces, mapEmptyArrayTo: FaceVector::class));
+    }
+
+    public function withConvexity(IntValue|Reference|int $convexity): self
+    {
+        return $this->with('convexity', $this->convertToValue($convexity));
     }
 
     protected function doRender(): string

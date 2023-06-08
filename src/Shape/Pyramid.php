@@ -23,6 +23,7 @@ final class Pyramid implements Renderable, HasWrappers
 
     private NumericValue|Reference $height;
 
+    /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
     public function __construct(
         NumericValue|Reference|float $width,
         NumericValue|Reference|float $depth,
@@ -31,6 +32,36 @@ final class Pyramid implements Renderable, HasWrappers
         $this->width = $this->convertToValue($width);
         $this->depth = $this->convertToValue($depth);
         $this->height = $this->convertToValue($height);
+    }
+
+    public function getWidth(): Reference|NumericValue
+    {
+        return $this->width;
+    }
+
+    public function getDepth(): Reference|NumericValue
+    {
+        return $this->depth;
+    }
+
+    public function getHeight(): Reference|NumericValue
+    {
+        return $this->height;
+    }
+
+    public function withWidth(NumericValue|Reference|float $width): self
+    {
+        return $this->with('width', $this->convertToValue($width));
+    }
+
+    public function withDepth(NumericValue|Reference|float $depth): self
+    {
+        return $this->with('depth', $this->convertToValue($depth));
+    }
+
+    public function withHeight(NumericValue|Reference|float $height): self
+    {
+        return $this->with('height', $this->convertToValue($height));
     }
 
     protected function getAliasedShape(): Renderable
