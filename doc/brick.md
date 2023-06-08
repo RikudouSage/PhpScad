@@ -25,8 +25,10 @@ So let's start!
 
 ## Creating the base shape
 
-We're gonna start with a simple object where we add the `Renderable` and `HasWrappers` interfaces and use the
-`RenderableImplementation` trait to avoid writing boilerplate.
+We're gonna start with a simple object where we add the `Renderable`, `HasWrappers` and `HasModuleDefinitions`
+interfaces and use the `RenderableImplementation` trait to avoid writing boilerplate.
+
+> More on modules later in this tutorial
 
 ```php
 <?php
@@ -34,16 +36,22 @@ We're gonna start with a simple object where we add the `Renderable` and `HasWra
 namespace Rikudou\PhpScad\Shape;
 
 use Rikudou\PhpScad\Implementation\RenderableImplementation;
+use Rikudou\PhpScad\Primitive\HasModuleDefinitions;
 use Rikudou\PhpScad\Primitive\HasWrappers;
 use Rikudou\PhpScad\Primitive\Renderable;
 
-final class Brick implements Renderable, HasWrappers
+final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
 {
     use RenderableImplementation;
 
     public function render(): string
     {
         // TODO: Implement render() method.
+    }
+    
+    public function getModules(): iterable
+    {
+        // TODO: Implement getModules() method.
     }
 }
 ```
@@ -57,13 +65,14 @@ namespace Rikudou\PhpScad\Shape;
 
 use Rikudou\PhpScad\Implementation\RenderableImplementation;
 use Rikudou\PhpScad\Implementation\ValueConverter;
+use Rikudou\PhpScad\Primitive\HasModuleDefinitions;
 use Rikudou\PhpScad\Primitive\HasWrappers;
 use Rikudou\PhpScad\Primitive\Renderable;
 use Rikudou\PhpScad\Value\IntValue;
 use Rikudou\PhpScad\Value\NumericValue;
 use Rikudou\PhpScad\Value\Reference;
 
-final class Brick implements Renderable, HasWrappers
+final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
 {
     use RenderableImplementation;
     use ValueConverter;
@@ -86,6 +95,11 @@ final class Brick implements Renderable, HasWrappers
     {
         // TODO: Implement render() method.
     }
+    
+    public function getModules(): iterable
+    {
+        // TODO: Implement getModules() method.
+    }
 }
 ```
 
@@ -106,6 +120,7 @@ namespace Rikudou\PhpScad\Shape;
 
 use Rikudou\PhpScad\Implementation\RenderableImplementation;
 use Rikudou\PhpScad\Implementation\ValueConverter;
+use Rikudou\PhpScad\Primitive\HasModuleDefinitions;
 use Rikudou\PhpScad\Primitive\HasWrappers;
 use Rikudou\PhpScad\Primitive\Renderable;
 use Rikudou\PhpScad\Value\Expression;
@@ -114,7 +129,7 @@ use Rikudou\PhpScad\Value\IntValue;
 use Rikudou\PhpScad\Value\NumericValue;
 use Rikudou\PhpScad\Value\Reference;
 
-final class Brick implements Renderable, HasWrappers
+final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
 {
     use RenderableImplementation;
     use ValueConverter;
@@ -159,6 +174,11 @@ final class Brick implements Renderable, HasWrappers
             ? new Expression("{$studBaseSize} * {$this->studsAmountY} - {$tolerances}")
             : new FloatValue($studBaseSize * $this->studsAmountY->getValue() - $tolerances);
     }
+    
+    public function getModules(): iterable
+    {
+        // TODO: Implement getModules() method.
+    }
 }
 ```
 
@@ -172,7 +192,7 @@ will be calculated by OpenSCAD at runtime.
 > We could have used `Expression` straight away without doing a check first, but you would end up with something like
 > "8 * 2 - 0.2" in the resulting OpenSCAD code which I personally don't like
 
-Now one final touch, before we get to rendering: we will not be providing the render string directly but rather as an
+Now one final touch, before we get to creating our shapes: we will not be providing the render string directly but rather as an
 alias to existing PHP renderables:
 
 ```php
@@ -182,6 +202,7 @@ namespace Rikudou\PhpScad\Shape;
 
 use Rikudou\PhpScad\Implementation\AliasShape;
 use Rikudou\PhpScad\Implementation\ValueConverter;
+use Rikudou\PhpScad\Primitive\HasModuleDefinitions;
 use Rikudou\PhpScad\Primitive\HasWrappers;
 use Rikudou\PhpScad\Primitive\Renderable;
 use Rikudou\PhpScad\Value\Expression;
@@ -190,7 +211,7 @@ use Rikudou\PhpScad\Value\IntValue;
 use Rikudou\PhpScad\Value\NumericValue;
 use Rikudou\PhpScad\Value\Reference;
 
-final class Brick implements Renderable, HasWrappers
+final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
 {
     use ValueConverter;
     use AliasShape;
@@ -242,6 +263,7 @@ What's changed?
 
 - `RenderableImplementation` trait was replaced with `AliasShape`
 - `render()` method was replaced with `getAliasedShape()`
+- `getModules()` was removed and the default implementation from `AliasShape` is used
 
 > This change allows us to work with high level `Renderable` php objects instead of writing the OpenSCAD string directly.
 
@@ -346,6 +368,7 @@ namespace Rikudou\PhpScad\Shape;
 
 use Rikudou\PhpScad\Implementation\AliasShape;
 use Rikudou\PhpScad\Implementation\ValueConverter;
+use Rikudou\PhpScad\Primitive\HasModuleDefinitions;
 use Rikudou\PhpScad\Primitive\HasWrappers;
 use Rikudou\PhpScad\Primitive\Renderable;
 use Rikudou\PhpScad\Value\Expression;
@@ -354,7 +377,7 @@ use Rikudou\PhpScad\Value\IntValue;
 use Rikudou\PhpScad\Value\NumericValue;
 use Rikudou\PhpScad\Value\Reference;
 
-final class Brick implements Renderable, HasWrappers
+final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
 {
     use ValueConverter;
     use AliasShape;
@@ -449,7 +472,7 @@ Let's create the cylinders on top of the bricks! I'll be moving the code for the
 need to move some variables to instance properties:
 
 ```php
-final class Brick implements Renderable, HasWrappers
+final class Brick implements Renderable, HasWrappers, HasModuleDefinitions
 {
     use ValueConverter;
     use AliasShape;
