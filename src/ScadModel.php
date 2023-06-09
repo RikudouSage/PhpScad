@@ -88,6 +88,11 @@ final class ScadModel
         return $this->with('customFonts', $fonts);
     }
 
+    public function withRenderer(Renderer $renderer): self
+    {
+        return $this->with('renderer', $renderer);
+    }
+
     public function render(string $outputFile): void
     {
         $this->renderer->render($outputFile, $this->getScadContent());
