@@ -21,6 +21,10 @@ abstract class AbstractOpenScadBinaryRenderer implements Renderer
                 $skipQuotes = false;
                 if ($argument === self::TARGET_FILE_PLACEHOLDER) {
                     $argument = $outputFile;
+                    if ($this->isFlatpak()) {
+                        $argument = "@@ '{$argument}' @@";
+                        $skipQuotes = true;
+                    }
                 }
                 if ($argument === self::SCAD_FILE_PLACEHOLDER) {
                     $renderer = new ScadFileRenderer();
@@ -29,7 +33,7 @@ abstract class AbstractOpenScadBinaryRenderer implements Renderer
 
                     $argument = $file;
                     if ($this->isFlatpak()) {
-                        $argument = "@@ {$argument} @@";
+                        $argument = "@@ '{$argument}' @@";
                         $skipQuotes = true;
                     }
                 }

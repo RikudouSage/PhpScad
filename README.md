@@ -502,3 +502,39 @@ $model = new ScadModel(facetsConfiguration: new FacetsNumber(30));
 This topic is covered in [separate documentation](doc/creating-shapes.md).
 
 **This documentation is a work in progress**
+
+## Rendering output
+
+By default, the `ScadModel` uses a `ScadFileRenderer` class which, as the name implies, renders the content into
+a SCAD file which you can then open in OpenSCAD.
+
+There are other built-in renderers available:
+
+- `PngPreviewRenderer`
+- `StlRenderer`
+
+Unlike the `ScadFileRenderer`, these two need to find the OpenSCAD binary. If you have OpenSCAD installed in your path
+or you use the flatpak version, it works out of the box:
+
+```php
+<?php
+
+use Rikudou\PhpScad\ScadModel;
+use Rikudou\PhpScad\Renderer\PngPreviewRenderer;
+use Rikudou\PhpScad\Renderer\StlRenderer;
+use Rikudou\PhpScad\Shape\Cube;
+
+$model = (new ScadModel())
+    ->withRenderable(new Cube(5, 5, 5))
+;
+
+$model->withRenderer(new PngPreviewRenderer())->render(__DIR__ . '/preview.png');
+$model->withRenderer(new StlRenderer())->render(__DIR__ . '/output.stl');
+
+// you can also provide some settings to the renderers:
+
+$previewRenderer = new PngPreviewRenderer(width: 512, height: 512, openScadPath: '/custom/path/to/openscad');
+$stlRenderer = new StlRenderer(openScadPath: '/custom/path/to/openscad');
+```
+
+> Tip: You can also create your own reusable renderer, follow the [tutorial here](doc/custom-renderer.md)
