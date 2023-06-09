@@ -1142,3 +1142,5 @@ If you've been wondering how the model looks 3D printed, here you go:
 
 ![3D Printed Brick](img/brick-print-01.jpg)
 ![3D Printed Brick](img/brick-print-02.jpg)
+![3D Printed Brick](img/brick-print-03.jpg)
+![3D Printed Brick](img/brick-print-04.jpg)
