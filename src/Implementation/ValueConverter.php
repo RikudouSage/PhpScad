@@ -4,7 +4,7 @@ namespace Rikudou\PhpScad\Implementation;
 
 use BackedEnum;
 use IntBackedEnum;
-use InvalidArgumentException;
+use Rikudou\PhpScad\Exception\UnsupportedTypeException;
 use Rikudou\PhpScad\Value\BoolValue;
 use Rikudou\PhpScad\Value\Face;
 use Rikudou\PhpScad\Value\FaceVector;
@@ -66,7 +66,7 @@ trait ValueConverter
             return new VectorValue($value);
         }
 
-        throw new InvalidArgumentException('Type not supported: ' . gettype($value));
+        throw new UnsupportedTypeException('Type not supported: ' . gettype($value));
     }
 
     private function isFaceVector(mixed $array, bool $considerEmptyArrayAsFaceVector): bool

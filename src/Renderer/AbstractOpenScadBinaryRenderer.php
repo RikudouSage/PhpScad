@@ -2,7 +2,8 @@
 
 namespace Rikudou\PhpScad\Renderer;
 
-use RuntimeException;
+use Rikudou\PhpScad\Exception\BinaryLocatorException;
+use Rikudou\PhpScad\Exception\SystemCommandException;
 
 abstract class AbstractOpenScadBinaryRenderer implements Renderer
 {
@@ -49,7 +50,7 @@ abstract class AbstractOpenScadBinaryRenderer implements Renderer
             exec("{$command} 2>&1 >/dev/null", $output, result_code: $exitCode);
 
             if ($exitCode !== 0) {
-                throw new RuntimeException("Failed to call system command: '{$command}'");
+                throw new SystemCommandException("Failed to call system command: '{$command}'");
             }
         } finally {
             if (is_string($file) && is_file($file)) {
@@ -72,7 +73,7 @@ abstract class AbstractOpenScadBinaryRenderer implements Renderer
             return "'{$output[0]}'";
         }
 
-        $exception = new RuntimeException('Cannot find openscad in path');
+        $exception = new BinaryLocatorException('Cannot find openscad in path');
 
         exec('which flatpak', result_code: $exitCode);
         if ($exitCode !== 0) {
