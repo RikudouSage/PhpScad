@@ -13,4 +13,6 @@ interface CustomizerVariable extends Stringable
     public function getScadRepresentation(): string;
 
     public function getDescription(): ?string;
+
+    public function getSpecification(): ?string;
 }

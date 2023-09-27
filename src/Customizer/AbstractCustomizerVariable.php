@@ -8,8 +8,9 @@ abstract class AbstractCustomizerVariable implements CustomizerVariable
 {
     public function __construct(
         private readonly string $name,
-        private readonly string|int|float|bool|array|null $value,
+        protected readonly string|int|float|bool|array|null $value,
         private readonly ?string $description = null,
+        private readonly ?string $specificationComment = null,
     ) {
     }
 
@@ -41,6 +42,11 @@ abstract class AbstractCustomizerVariable implements CustomizerVariable
     public function getDescription(): ?string
     {
         return $this->description;
+    }
+
+    public function getSpecification(): null|string
+    {
+        return $this->specificationComment;
     }
 
     private function getRepresentation(float|array|bool|int|string|null $value): string
