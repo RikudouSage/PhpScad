@@ -9,6 +9,7 @@ use Rikudou\PhpScad\Implementation\ValueConverter;
 use Rikudou\PhpScad\Implementation\Wither;
 use Rikudou\PhpScad\Primitive\HasWrappers;
 use Rikudou\PhpScad\Primitive\Renderable;
+use Rikudou\PhpScad\Value\BoolValue;
 use Rikudou\PhpScad\Value\NumericValue;
 use Rikudou\PhpScad\Value\Reference;
 
@@ -26,15 +27,19 @@ final class Cube implements Renderable, HasWrappers
 
     private NumericValue|Reference $height;
 
+    private BoolValue|Reference $center;
+
     /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
     public function __construct(
         NumericValue|Reference|float $width = 0,
         NumericValue|Reference|float $depth = 0,
         NumericValue|Reference|float $height = 0,
+        BoolValue|Reference|bool $center = false,
     ) {
         $this->width = $this->convertToValue($width);
         $this->depth = $this->convertToValue($depth);
         $this->height = $this->convertToValue($height);
+        $this->center = $this->convertToValue($center);
     }
 
     public function getWidth(): NumericValue|Reference
@@ -52,6 +57,11 @@ final class Cube implements Renderable, HasWrappers
         return $this->height;
     }
 
+    public function isCentered(): BoolValue|Reference
+    {
+        return $this->center;
+    }
+
     public function withWidth(NumericValue|Reference|float $width): self
     {
         return $this->with('width', $this->convertToValue($width));
@@ -67,6 +77,11 @@ final class Cube implements Renderable, HasWrappers
         return $this->with('height', $this->convertToValue($height));
     }
 
+    public function withCentered(BoolValue|Reference|bool $center): self
+    {
+        return $this->with('center', $this->convertToValue($center));
+    }
+
     protected function isRenderable(): bool
     {
         return (!$this->getDepth()->hasLiteralValue() || ($this->getDepth()->getValue() > 0))
@@ -78,10 +93,11 @@ final class Cube implements Renderable, HasWrappers
     protected function doRender(): string
     {
         return sprintf(
-            'cube([%s, %s, %s]);',
+            'cube([%s, %s, %s], center = %s);',
             $this->width,
             $this->depth,
             $this->height,
+            $this->center,
         );
     }
 }
