@@ -48,4 +48,19 @@ final class Point implements Value
             && $this->z->hasLiteralValue()
         ;
     }
+
+    public function getX(): Reference|NumericValue
+    {
+        return $this->x;
+    }
+
+    public function getY(): Reference|NumericValue
+    {
+        return $this->y;
+    }
+
+    public function getZ(): Reference|NumericValue
+    {
+        return $this->z;
+    }
 }
