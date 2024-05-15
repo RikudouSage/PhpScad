@@ -68,19 +68,19 @@ abstract class AbstractOpenScadBinaryRenderer implements Renderer
 
     protected function findBinary(): string
     {
-        exec('which openscad', $output, $exitCode);
+        exec('which openscad 2>&1', $output, $exitCode);
         if ($exitCode === 0) {
             return "'{$output[0]}'";
         }
 
         $exception = new BinaryLocatorException('Cannot find openscad in path');
 
-        exec('which flatpak', result_code: $exitCode);
+        exec('which flatpak 2>&1', result_code: $exitCode);
         if ($exitCode !== 0) {
             throw $exception;
         }
 
-        exec('flatpak info org.openscad.OpenSCAD', result_code: $exitCode);
+        exec('flatpak info org.openscad.OpenSCAD 2>&1', result_code: $exitCode);
         if ($exitCode !== 0) {
             throw $exception;
         }
